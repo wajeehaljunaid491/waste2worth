@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'dev.flutter.flutter-gradle-plugin'  // Flutter plugin
+
+android {
+    namespace = "com.example.waste2worth"  // Change this to your app's package name
+    compileSdk = 34  // Set the target SDK version
+
+    defaultConfig {
+        applicationId = "com.example.waste2worth"  // Change to your app's package name
+        minSdk = 21  // Set minimum SDK version required for your app
+        targetSdk = 34  // Target SDK version
+        versionCode = 1  // Version code for app updates
+        versionName = "1.0.0"  // Version name for app
+    }
+
+    signingConfigs {
+        release {
+            keyAlias 'your-key-alias'  // Replace with your key alias
+            keyPassword 'your-key-password'  // Replace with your key password
+            storeFile file('release-key.jks')  // Path to your keystore file
+            storePassword 'your-store-password'  // Replace with your store password
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release  // Use release signing config for the release build
+            minifyEnabled true  // Enable code shrinking and obfuscation
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            signingConfig signingConfigs.debug  // Debug signing config (you can leave this default if needed)
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8  // Set Java version compatibility
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"  // Set Kotlin JVM compatibility version
+    }
+}
+
+flutter {
+    source = "../../"  // Path to Flutter SDK if necessary
+}
+
+dependencies {
+    implementation 'com.google.firebase:firebase-core:21.0.0'  // Firebase Core
+    implementation 'com.google.firebase:firebase-auth:21.1.0'  // Firebase Authentication
+    implementation 'com.google.firebase:firebase-database:20.0.5'  // Firebase Database
+    implementation 'com.google.firebase:firebase-firestore:24.0.0'  // Firebase Firestore
+    implementation 'com.google.firebase:firebase-storage:20.1.0'  // Firebase Storage
+    implementation 'com.google.firebase:firebase-analytics:21.0.0'  // Firebase Analytics
+
+    // Add other dependencies here
+}
+
+apply plugin: 'com.google.gms.google-services'  // Apply Firebase Google services plugin
